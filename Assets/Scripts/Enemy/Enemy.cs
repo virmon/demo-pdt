@@ -21,6 +21,15 @@ public class Enemy : MonoBehaviour
     Unit targetUnit = null;
     GameManager gameManager;
 
+    public enum EnemyType
+    {
+        Normal,
+        Base,
+        Boss
+    }
+
+    public EnemyType enemyType;
+
     private void OnEnable()
     {
         AllEnemies.Add(this);
@@ -102,6 +111,10 @@ public class Enemy : MonoBehaviour
     {
         if (hp <= 0)
         {
+            if (enemyType == EnemyType.Base)
+            {
+                gameManager.GameClear();
+            }
             Destroy(gameObject);
         }
     }
