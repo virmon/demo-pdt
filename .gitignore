@@ -1,0 +1,49 @@
+# Unity temporary/cache directories (Never track these)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+.utmp/
+
+# Asset meta data should only be ignored when the asset itself is ignored
+!/[Aa]ssets/**/*.meta
+
+# OS/System generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files (Visual Studio, VS Code, JetBrains Rider)
+.vs/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+*.com.unity.ide.rider/
+
+# Crash dumps
+*.log
+*.crash
+
+# Built-in Blender auto-saves (if utilizing Blender file imports directly)
+*.blend1
+
+# =========================================================================
+# Custom Ignored Folders
+# =========================================================================
+# Ignore all Plugins folders and their contents anywhere in the Assets directory
+/[Aa]ssets/**/[Pp]lugins/
+/[Aa]ssets/**/[Pp]lugins.meta
+
+# Ignore all Resources folders and their contents anywhere in the Assets directory
+/[Aa]ssets/**/[Rr]esources/
+/[Aa]ssets/**/[Rr]esources.meta
