@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +15,11 @@ public class Unit : MonoBehaviour
     public float attackRange = 2f;
     public int attackPow = 1;
     public float moveSpeed = 0.5f;
-
     public Transform hpGauge;
 
-    private void Onnable()
+    Enemy targetEnemy = null;
+
+    private void OnEnable()
     {
         AllUnits.Add(this);
     }
@@ -30,17 +32,57 @@ public class Unit : MonoBehaviour
     private void Update()
     {
         Move();
+        SearchEnemy();
+        Attack();
         Dead();
     }
 
     // Move
     private void Move()
     {
+        if (targetEnemy != null) return;
         transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
     }
 
     // Acquire a target within the attack range
+    private void SearchEnemy()
+    {
+        float minDistance = float.MaxValue;
+        Enemy nearest = null;
+
+        foreach(var enemy in Enemy.AllEnemies)
+        {
+            if (enemy == null) continue;
+            Vector3 diff = transform.position - enemy.transform.position;
+            float halfX = enemy.sizeX * 0.5f;
+            float halfY = enemy.sizeY * 0.5f;
+            float dx = Math.Abs(diff.x) - halfX;
+            float dy = Math.Abs(diff.y) - halfY;
+            float d = Mathf.Max(dx, 0f) + Mathf.Max(dy, 0);
+
+            if (d <= attackRange && d < minDistance)
+            {
+                minDistance = d;
+                nearest = enemy;
+            }
+        }
+        targetEnemy = nearest;
+    }
+
+    private float attackTime = 0f;
+
     // Attack the acquired target
+    private void Attack()
+    {
+        if (targetEnemy == null) return;
+        attackTime += Time.deltaTime;
+
+        if (attackTime >= attackInterval)
+        {
+            attackTime = 0;
+            targetEnemy.TakeDMG(attackPow);
+        }
+    }
 
     // Unit takes damage
     public void TakeDMG(int num)

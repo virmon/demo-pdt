@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 0.5f;
     public Transform hpGauge;
 
+    Unit targetUnit = null;
+
     private void OnEnable()
     {
         AllEnemies.Add(this);
@@ -30,6 +33,8 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         Move();
+        SearchUnit();
+        Attack();
         Dead();
     }
 
@@ -37,7 +42,47 @@ public class Enemy : MonoBehaviour
     // Move
     private void Move()
     {
+         if (targetUnit != null) return;
         transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+    }
+
+    private void SearchUnit()
+    {
+        float minDistance = float.MaxValue;
+        Unit nearest = null;
+
+        foreach(var unit in Unit.AllUnits)
+        {
+            if (unit == null) continue;
+            Vector3 diff = transform.position - unit.transform.position;
+            float halfX = unit.sizeX * 0.5f;
+            float halfY = unit.sizeY * 0.5f;
+            float dx = Math.Abs(diff.x) - halfX;
+            float dy = Math.Abs(diff.y) - halfY;
+            float d = Mathf.Max(dx, 0f) + Mathf.Max(dy, 0);
+
+            if (d <= attackRange && d < minDistance)
+            {
+                minDistance = d;
+                nearest = unit;
+            }
+        }
+        targetUnit = nearest;
+    }
+
+    private float attackTime = 0f;
+
+    // Attack the acquired target
+    private void Attack()
+    {
+        if (targetUnit == null) return;
+        attackTime += Time.deltaTime;
+
+        if (attackTime >= attackInterval)
+        {
+            attackTime = 0;
+            targetUnit.TakeDMG(attackPow);
+        }
     }
 
     // Unit takes damage
