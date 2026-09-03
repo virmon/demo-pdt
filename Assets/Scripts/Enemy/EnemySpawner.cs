@@ -5,6 +5,13 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 12f;
     public GameObject[] enemy;
 
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
+
     private void Update()
     {
         SpawnLoop();
@@ -15,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnLoop()
     {
+        if (gameManager.noActionFlag == true) return;
+        
         loopTime += Time.deltaTime;
         if (loopTime > spawnInterval + randomTime)
         {

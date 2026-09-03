@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public Transform hpGauge;
 
     Unit targetUnit = null;
+    GameManager gameManager;
 
     private void OnEnable()
     {
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
         maxHp = hp;
     }
 
@@ -42,16 +44,18 @@ public class Enemy : MonoBehaviour
     // Move
     private void Move()
     {
-         if (targetUnit != null) return;
+        if (gameManager.noActionFlag == true) return;
+        if (targetUnit != null) return;
         transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
     }
 
     private void SearchUnit()
     {
+        if (gameManager.noActionFlag == true) return;
         float minDistance = float.MaxValue;
         Unit nearest = null;
 
-        foreach(var unit in Unit.AllUnits)
+        foreach (var unit in Unit.AllUnits)
         {
             if (unit == null) continue;
             Vector3 diff = transform.position - unit.transform.position;
@@ -75,6 +79,7 @@ public class Enemy : MonoBehaviour
     // Attack the acquired target
     private void Attack()
     {
+        if (gameManager.noActionFlag == true) return;
         if (targetUnit == null) return;
         attackTime += Time.deltaTime;
 

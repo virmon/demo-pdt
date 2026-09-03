@@ -10,6 +10,12 @@ public class Player : MonoBehaviour
     public float speed = 8f;
 
     Vector3 move;
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
 
     private void Update()
     {
@@ -25,6 +31,8 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
+        if (gameManager.noActionFlag == true) return;
+
         transform.Translate(move * speed * Time.deltaTime);
 
         Vector3 currentPos = transform.position;
@@ -40,6 +48,7 @@ public class Player : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
+            if (gameManager.noActionFlag == true) return;
             isUnitPushing = true;
         }
         if (context.phase == InputActionPhase.Canceled)
