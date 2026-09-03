@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public GameObject[] spawnPoint;
     public Collider2D myCol;
     public GameObject[] hpIcon;
+    public Animator animator;
 
     public float speed = 8f;
     public int hp = 3;
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour
         UnitButtonPushing();
         Move();
         ReturnMyCol();
+        Down();
+        ReturnDown();
     }
 
     // Move
@@ -55,6 +58,8 @@ public class Player : MonoBehaviour
         if (context.phase == InputActionPhase.Started)
         {
             if (gameManager.noActionFlag == true) return;
+            if (downFlag) return;
+
             isUnitPushing = true;
         }
         if (context.phase == InputActionPhase.Canceled)
@@ -89,7 +94,7 @@ public class Player : MonoBehaviour
         if (gameManager.noActionFlag == true) return;
         hp--;
         myCol.enabled = false; // disable hitbox
-        // damage animation
+        animator.SetBool("dmg", true);
         if (hp == 2) hpIcon[0].SetActive(false);
         else if (hp == 1) hpIcon[1].SetActive(false);
         else if (hp == 0) hpIcon[2].SetActive(false);
@@ -108,6 +113,40 @@ public class Player : MonoBehaviour
             {
                 returnMyColTime = 0f;
                 myCol.enabled = true;
+                animator.SetBool("dmg", false);
+            }
+        }
+    }
+
+    // Become downed
+    private void Down()
+    {
+        if (gameManager.noActionFlag == true) return;
+        if (hp <= 0 && downFlag == false)
+        {
+            downFlag = true;
+            animator.SetBool("down", true);
+            animator.SetBool("dmg", false);
+        }
+
+    }
+
+    // Recover from being downed
+    private float returnDownTime = 0f;
+    private void ReturnDown()
+    {
+        if (downFlag)
+        {
+            returnDownTime += Time.deltaTime;
+            if (returnDownTime > 5f)
+            {
+                returnDownTime = 0f;
+                hp = 3;
+                hpIcon[0].SetActive(true);
+                hpIcon[1].SetActive(true);
+                hpIcon[2].SetActive(true);
+                downFlag = false;
+                animator.SetBool("down", false);
             }
         }
     }
