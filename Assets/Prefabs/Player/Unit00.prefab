@@ -87,7 +87,7 @@ MonoBehaviour:
   sizeX: 0
   sizeY: 0
   attackInterval: 0.5
-  attackRange: 2
+  attackRange: 1
   attackPow: 1
   moveSpeed: 0.5
   hpGauge: {fileID: 4283926966250369794}
