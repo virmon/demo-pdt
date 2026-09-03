@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
 
     Unit targetUnit = null;
     GameManager gameManager;
+    Player player;
 
     public enum EnemyType
     {
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gameManager = GameManager.Instance;
         maxHp = hp;
     }
@@ -96,6 +98,15 @@ public class Enemy : MonoBehaviour
         {
             attackTime = 0;
             targetUnit.TakeDMG(attackPow);
+        }
+    }
+
+    // Deal damange to the player
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            player.TakeDMG();
         }
     }
 
