@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class Player : MonoBehaviour
     public Collider2D myCol;
     public GameObject[] hpIcon;
     public Animator animator;
+    public Text manaNum;
 
     public float speed = 8f;
     public int hp = 3;
+    public int mana = 0;
+    public float recoverManaInterval = 1f;
 
     Vector3 move;
     GameManager gameManager;
@@ -21,6 +25,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
+        ShowManaNum();
     }
 
     private void Update()
@@ -30,6 +35,7 @@ public class Player : MonoBehaviour
         ReturnMyCol();
         Down();
         ReturnDown();
+        RecoverMana();
     }
 
     // Move
@@ -81,7 +87,11 @@ public class Player : MonoBehaviour
                     float dy = Mathf.Abs(transform.position.y - spawnPoint[i].transform.position.y);
                     if (dy < 0.8f)
                     {
-                        Instantiate(unit[0], spawnPoint[i].transform.position, Quaternion.identity);
+                        if (mana >= 20)
+                        {
+                            mana -= 20;
+                            Instantiate(unit[0], spawnPoint[i].transform.position, Quaternion.identity);
+                        }
                     }
                 }
             }
@@ -149,5 +159,31 @@ public class Player : MonoBehaviour
                 animator.SetBool("down", false);
             }
         }
+    }
+
+    // Mana regenerates automatically
+    private int preMana = 0;
+    private float recoverTime = 0f;
+    private void RecoverMana()
+    {
+        if (gameManager.noActionFlag == true) return;
+        recoverTime += Time.deltaTime;
+        if (recoverTime >= recoverManaInterval)
+        {
+            recoverTime = 0f;
+            mana++;
+        }
+
+        if (preMana != mana)
+        {
+            preMana = mana;
+            ShowManaNum();
+        }
+    }
+
+    // Display Mana Value
+    private void ShowManaNum()
+    {
+        manaNum.text = mana.ToString();
     }
 }

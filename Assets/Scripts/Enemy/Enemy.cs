@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour
     public float attackRange = 2f;
     public int attackPow = 1;
     public float moveSpeed = 0.5f;
+    public int dropCount = 1;
+    public GameObject mana;
     public Transform hpGauge;
 
     Unit targetUnit = null;
@@ -126,7 +129,16 @@ public class Enemy : MonoBehaviour
             {
                 gameManager.GameClear();
             }
+            Drop();
             Destroy(gameObject);
+        }
+    }
+
+    private void Drop()
+    {
+        for(int i = 0; i < dropCount; i++)
+        {
+            Instantiate(mana, transform.position, quaternion.identity);
         }
     }
 
