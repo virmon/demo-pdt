@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7621505578670860944}
   - component: {fileID: 4365337314020999463}
   m_Layer: 0
-  m_Name: Unit00
+  m_Name: Unit01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,15 +83,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ebe2e977f3dc5d48ab21b999cda45ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
-  hp: 20
+  hp: 40
   sizeX: 0
   sizeY: 0
-  attackInterval: 0.5
+  attackInterval: 1
   attackRange: 1
   attackPow: 1
-  moveSpeed: 0.5
+  moveSpeed: 0.4
   hpGauge: {fileID: 4283926966250369794}
-  unitType: 0
+  unitType: 1
 --- !u!1 &6289751349032361684
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 6289751349032361684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -173,7 +173,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -953733803865907635, guid: 0bf243e2df160d24ab9a4f2598b6c36f, type: 3}
+  m_Sprite: {fileID: 567365368117375354, guid: 8aece75749ab1744082225a8297575f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

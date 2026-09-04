@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public Collider2D myCol;
     public GameObject[] hpIcon;
     public Animator animator;
+    public Animator uiAnimator;
     public Text manaNum;
 
     public float speed = 8f;
@@ -56,6 +57,43 @@ public class Player : MonoBehaviour
         transform.position = currentPos;
     }
 
+    // Select unit
+    public int unitSelectNum = 0;
+    public void OnUnitSelectL(InputAction.CallbackContext context)
+    {
+        if (gameManager.noActionFlag == true) return;
+        if (context.phase == InputActionPhase.Started)
+        {
+            unitSelectNum--;
+            if (unitSelectNum < 0)
+            {
+                unitSelectNum = unit.Length - 1;
+            }
+            ShowUnitSelecting();
+        }
+    }
+
+    public void OnUnitSelectR(InputAction.CallbackContext context)
+    {
+        if (gameManager.noActionFlag == true) return;
+        if (context.phase == InputActionPhase.Started)
+        {
+            unitSelectNum++;
+            if (unitSelectNum >= unit.Length)
+            {
+                unitSelectNum = 0;
+            }
+            ShowUnitSelecting();
+        }
+    }
+
+    private void ShowUnitSelecting()
+    {
+        if (unitSelectNum == 0) uiAnimator.SetTrigger("unit00");
+        if (unitSelectNum == 1) uiAnimator.SetTrigger("unit01");
+        if (unitSelectNum == 2) uiAnimator.SetTrigger("unit02");
+    }
+
     // spawn unit on button input
     [NonSerialized] public bool isUnitPushing = false;
     private float unitPushingTime = 0f;
@@ -87,10 +125,20 @@ public class Player : MonoBehaviour
                     float dy = Mathf.Abs(transform.position.y - spawnPoint[i].transform.position.y);
                     if (dy < 0.8f)
                     {
-                        if (mana >= 20)
+                        if (unitSelectNum == 0 && mana >= 20)
                         {
                             mana -= 20;
                             Instantiate(unit[0], spawnPoint[i].transform.position, Quaternion.identity);
+                        }
+                        else if (unitSelectNum == 1 && mana >= 30)
+                        {
+                            mana -= 30;
+                            Instantiate(unit[1], spawnPoint[i].transform.position, Quaternion.identity);
+                        }
+                        else if (unitSelectNum == 2 && mana >= 50)
+                        {
+                            mana -= 50;
+                            Instantiate(unit[2], spawnPoint[i].transform.position, Quaternion.identity);
                         }
                     }
                 }

@@ -53,6 +53,8 @@ MonoBehaviour:
   attackRange: 0
   attackPow: 0
   moveSpeed: 0
+  dropCount: 1
+  mana: {fileID: 5233477279815405418, guid: 00852561b84a8464789cdf874038a547, type: 3}
   hpGauge: {fileID: 5435568544655544022}
   enemyType: 1
 --- !u!1 &6186253544987962370
