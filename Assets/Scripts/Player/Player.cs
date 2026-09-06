@@ -60,8 +60,8 @@ public class Player : MonoBehaviour
         transform.Translate(move * speed * Time.deltaTime);
 
         Vector3 currentPos = transform.position;
-        currentPos.x = Math.Clamp(currentPos.x, -10f, 10f);
-        currentPos.y = Math.Clamp(currentPos.y, -4f, 4f);
+        currentPos.x = Math.Clamp(currentPos.x, -13f, 13f);
+        currentPos.y = Math.Clamp(currentPos.y, -2.4f, 2.4f);
         transform.position = currentPos;
     }
 
@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
     {
         if (gameManager.noActionFlag == true) return;
         if (downFlag) return;
-        
+
         if (context.phase == InputActionPhase.Started)
         {
             if (bombNum >= 1000)
