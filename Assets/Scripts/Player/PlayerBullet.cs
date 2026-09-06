@@ -33,5 +33,11 @@ public class PlayerBullet : MonoBehaviour
             collision.GetComponent<Enemy>().TakeDMG(1);
             Destroy(gameObject);
         }
+
+        if (collision.CompareTag("Unit"))
+        {
+            collision.transform.DOMoveX(0.2f, 0.1f).SetRelative().SetLink(collision.gameObject);
+            Destroy(gameObject);
+        }
     }
 }

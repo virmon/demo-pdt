@@ -6,6 +6,9 @@ public class Unit : MonoBehaviour
 {
     public static List<Unit> AllUnits = new List<Unit>();
 
+    private const string TAG_UNIT = "Unit";
+    private const string TAG_UNTAGGED = "Untagged";
+
     private int maxHp;
 
     public int hp;
@@ -81,6 +84,15 @@ public class Unit : MonoBehaviour
             }
         }
         targetEnemy = nearest;
+
+        if (targetEnemy == null && CompareTag(TAG_UNTAGGED))
+        {
+            gameObject.tag = TAG_UNIT;
+        }
+        else if (targetEnemy != null && CompareTag(TAG_UNIT))
+        {
+            gameObject.tag = TAG_UNTAGGED;
+        }
     }
 
     private float attackTime = 0f;

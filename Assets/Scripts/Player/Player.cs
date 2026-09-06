@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 
         Vector3 currentPos = transform.position;
         currentPos.x = Math.Clamp(currentPos.x, -13f, 13f);
-        currentPos.y = Math.Clamp(currentPos.y, -2.4f, 2.4f);
+        currentPos.y = Math.Clamp(currentPos.y, -2.4f, 5f);
         transform.position = currentPos;
     }
 
