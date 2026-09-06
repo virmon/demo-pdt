@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     private bool downFlag = false;
 
+    public int bombNum = 0;
     public GameObject[] unit;
     public GameObject[] spawnPoint;
     public Collider2D myCol;
@@ -16,6 +17,9 @@ public class Player : MonoBehaviour
     public Animator uiAnimator;
     public Text manaNum;
     public GameObject bullet;
+    public GameObject bombUI;
+    public Image bombGauge;
+    public GameObject bomb;
 
     public float speed = 8f;
     public int hp = 3;
@@ -29,6 +33,7 @@ public class Player : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         ShowManaNum();
+        ShowBombGauge();
     }
 
     private void Update()
@@ -180,6 +185,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Fire bomb
+    public void OnBomb(InputAction.CallbackContext context)
+    {
+        if (gameManager.noActionFlag == true) return;
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (bombNum >= 1000)
+            {
+                bombNum = 0;
+                Vector3 pos = transform.position;
+                Instantiate(bomb, new Vector3(pos.x + 3, pos.y, 0), quaternion.identity);
+            }
+        }
+    }
+
     // Take damage
     public void TakeDMG()
     {
@@ -267,5 +287,27 @@ public class Player : MonoBehaviour
     private void ShowManaNum()
     {
         manaNum.text = mana.ToString();
+    }
+
+    // Convert bomb points
+    public void AddBombNum(int num)
+    {
+        bombNum += num;
+        if (bombNum >= 1000) bombNum = 1000;
+        ShowBombGauge();
+    }
+
+    // Display bomb gauge
+    private void ShowBombGauge()
+    {
+        bombGauge.fillAmount = (float)bombNum / 1000;
+        if (bombNum >= 1000)
+        {
+            bombUI.SetActive(true);
+        }
+        else
+        {
+            bombUI.SetActive(false);
+        }
     }
 }

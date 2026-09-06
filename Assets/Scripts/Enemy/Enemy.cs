@@ -118,6 +118,7 @@ public class Enemy : MonoBehaviour
     {
         hp -= num;
         hpGauge.transform.localScale = new Vector3((float)hp / maxHp, 1, 1);
+        player.AddBombNum(24);
     }
 
     // Unit dies
