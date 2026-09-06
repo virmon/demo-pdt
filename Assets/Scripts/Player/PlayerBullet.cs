@@ -1,10 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
-using Unity.VisualScripting;
+using System;
 
 public class PlayerBullet : MonoBehaviour
 {
     private float speed = 12f;
+    [NonSerialized] public float upSpeed = 0f;
+
     public SpriteRenderer sprite;
 
     private void Start()
@@ -21,6 +23,7 @@ public class PlayerBullet : MonoBehaviour
     private void Move()
     {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
+        transform.Translate(Vector3.up * upSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

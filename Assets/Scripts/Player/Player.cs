@@ -91,7 +91,25 @@ public class Player : MonoBehaviour
             if (shotTime >= 0.3f)
             {
                 shotTime = 0;
-                Instantiate(bullet, transform.position, quaternion.identity);
+
+                if (gameManager.shotUpgradeLV == 0)
+                {
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                }
+                else if (gameManager.shotUpgradeLV == 1)
+                {
+                    Vector3 pos = transform.position;
+                    Instantiate(bullet, new Vector3(pos.x, pos.y + 0.2f, 0), Quaternion.identity);
+                    Instantiate(bullet, new Vector3(pos.x, pos.y - 0.2f, 0), Quaternion.identity);
+                }
+                else if (gameManager.shotUpgradeLV == 2)
+                {
+                    GameObject bullet1 = Instantiate(bullet, transform.position, Quaternion.Euler(0, 0, 4.76f));
+                    bullet1.GetComponent<PlayerBullet>().upSpeed = 1;
+                    Instantiate(bullet, transform.position, Quaternion.identity);
+                    GameObject bullet2 = Instantiate(bullet, transform.position, Quaternion.Euler(0, 0, -4.76f));
+                    bullet2.GetComponent<PlayerBullet>().upSpeed = -1;
+                }
             }
         }
     }

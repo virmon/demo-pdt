@@ -230,7 +230,7 @@
                 {
                     "name": "",
                     "id": "79c9af7e-96a7-4d20-9c92-f02e3c08e335",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -252,7 +252,7 @@
                 {
                     "name": "",
                     "id": "a94bd917-a68b-4c15-a8a8-b6162b2415e7",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

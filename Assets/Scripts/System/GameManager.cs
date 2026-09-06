@@ -5,6 +5,11 @@ public class GameManager : MonoBehaviour
 {
     [NonSerialized] public bool noActionFlag = false;
 
+    [NonSerialized] public int shotUpgradeLV = 0;
+    [NonSerialized] public int unitUpgradeLV = 0;
+    [NonSerialized] public int bombUpgradeLV = 0;
+    [NonSerialized] public bool bossSpawnFlag = false;
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
