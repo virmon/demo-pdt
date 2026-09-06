@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     public Animator uiAnimator;
     public Text manaNum;
+    public GameObject bullet;
 
     public float speed = 8f;
     public int hp = 3;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
         Down();
         ReturnDown();
         RecoverMana();
+        Shooting();
     }
 
     // Move
@@ -55,6 +58,37 @@ public class Player : MonoBehaviour
         currentPos.x = Math.Clamp(currentPos.x, -10f, 10f);
         currentPos.y = Math.Clamp(currentPos.y, -4f, 4f);
         transform.position = currentPos;
+    }
+
+    // Fire bullet
+    private bool shootingFlag = false;
+    private float shotTime = 0.3f;
+    public void OnShot(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            shootingFlag = true;
+        }
+        if (context.phase == InputActionPhase.Canceled)
+        {
+            shootingFlag = false;
+            shotTime = 0.3f;
+        }
+    }
+
+    private void Shooting()
+    {
+        if (gameManager.noActionFlag == true) return;
+        if (downFlag == true) return;
+        if (shootingFlag == true)
+        {
+            shotTime += Time.deltaTime;
+            if (shotTime >= 0.3f)
+            {
+                shotTime = 0;
+                Instantiate(bullet, transform.position, quaternion.identity);
+            }
+        }
     }
 
     // Select unit

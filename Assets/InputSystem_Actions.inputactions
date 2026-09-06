@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shot",
+                    "type": "Button",
+                    "id": "bd0379b9-a13e-4444-abd6-e3e39e32dbbb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -212,7 +221,7 @@
                 {
                     "name": "",
                     "id": "79c9af7e-96a7-4d20-9c92-f02e3c08e335",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -239,6 +248,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "UnitSelectR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea73d194-d549-4b38-b55c-c6018ed8a121",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Shot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cef241f3-fc9e-49dd-927b-e335438088b5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
