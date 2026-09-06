@@ -3,8 +3,11 @@ using DG.Tweening;
 
 public class Bomb : MonoBehaviour
 {
+    GameManager gameManager;
+
     private void Start()
     {
+        gameManager = GameManager.Instance;
         Destroy(gameObject, 2f);
     }
 
@@ -12,7 +15,18 @@ public class Bomb : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<Enemy>().TakeDMG(10);
+            if (gameManager.bombUpgradeLV == 0)
+            {
+                collision.GetComponent<Enemy>().TakeDMG(10);
+            }
+            else if (gameManager.bombUpgradeLV == 1)
+            {
+                collision.GetComponent<Enemy>().TakeDMG(20);
+            }
+            else if (gameManager.bombUpgradeLV == 2)
+            {
+                collision.GetComponent<Enemy>().TakeDMG(30);
+            }
 
             if (collision.GetComponent<Enemy>().enemyType != Enemy.EnemyType.Base)
             {

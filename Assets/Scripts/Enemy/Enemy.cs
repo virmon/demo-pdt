@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     public int dropCount = 1;
     public GameObject mana;
     public Transform hpGauge;
+    public GameObject upgradeUI;
 
     Unit targetUnit = null;
     GameManager gameManager;
@@ -119,7 +120,19 @@ public class Enemy : MonoBehaviour
     {
         hp -= num;
         hpGauge.transform.localScale = new Vector3((float)hp / maxHp, 1, 1);
-        player.AddBombNum(24);
+
+        if (gameManager.bombUpgradeLV == 0)
+        {
+            player.AddBombNum(4);
+        }
+        if (gameManager.bombUpgradeLV == 1)
+        {
+            player.AddBombNum(5);
+        }
+        if (gameManager.bombUpgradeLV == 2)
+        {
+            player.AddBombNum(6);
+        }
     }
 
     // Unit dies
@@ -127,6 +140,12 @@ public class Enemy : MonoBehaviour
     {
         if (hp <= 0)
         {
+            if (enemyType == EnemyType.Gate)
+            {
+                Instantiate(upgradeUI, Vector3.zero, Quaternion.identity);
+                gameManager.bossSpawnFlag = true;
+            }
+
             if (enemyType == EnemyType.Base)
             {
                 gameManager.GameClear();
@@ -138,7 +157,7 @@ public class Enemy : MonoBehaviour
 
     private void Drop()
     {
-        for(int i = 0; i < dropCount; i++)
+        for (int i = 0; i < dropCount; i++)
         {
             Instantiate(mana, transform.position, quaternion.identity);
         }
