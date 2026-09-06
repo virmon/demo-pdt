@@ -38,6 +38,7 @@ public class Unit : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         maxHp = hp;
+        Upgrade();
     }
 
     private void Update()
@@ -96,6 +97,39 @@ public class Unit : MonoBehaviour
         {
             attackTime = 0;
             targetEnemy.TakeDMG(attackPow);
+        }
+    }
+
+    // Unit Upgrade
+    private void Upgrade()
+    {
+        if (unitType == UnitType.Unit00 && gameManager.unitUpgradeLV == 1)
+        {
+            moveSpeed += 0.1f;
+        }
+        else if (unitType == UnitType.Unit00 && gameManager.unitUpgradeLV == 2)
+        {
+            moveSpeed += 0.2f;
+        }
+
+        if (unitType == UnitType.Unit01 && gameManager.unitUpgradeLV == 1)
+        {
+            hp += 10;
+            maxHp += 10;
+        }
+        else if (unitType == UnitType.Unit01 && gameManager.unitUpgradeLV == 2)
+        {
+            hp += 20;
+            maxHp += 20;
+        }
+
+        if (unitType == UnitType.Unit02 && gameManager.unitUpgradeLV == 1)
+        {
+            attackRange += 0.5f;
+        }
+        else if (unitType == UnitType.Unit02 && gameManager.unitUpgradeLV == 2)
+        {
+            attackRange += 1f;
         }
     }
 
