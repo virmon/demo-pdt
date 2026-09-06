@@ -207,6 +207,8 @@ public class Player : MonoBehaviour
     public void OnBomb(InputAction.CallbackContext context)
     {
         if (gameManager.noActionFlag == true) return;
+        if (downFlag) return;
+        
         if (context.phase == InputActionPhase.Started)
         {
             if (bombNum >= 1000)
