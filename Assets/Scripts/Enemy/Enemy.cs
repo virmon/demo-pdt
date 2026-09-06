@@ -29,7 +29,8 @@ public class Enemy : MonoBehaviour
     {
         Normal,
         Base,
-        Boss
+        Boss,
+        Gate
     }
 
     public EnemyType enemyType;
