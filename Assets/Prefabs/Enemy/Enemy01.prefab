@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1148129286617098494, guid: 03146ff49e3c87d489d227e526a4426b, type: 3}
+  m_Sprite: {fileID: 3090421441385258324, guid: c77948eea73758a48881654d46b32735, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 546854904916881704}
   - component: {fileID: 2497384671801384878}
   m_Layer: 0
-  m_Name: Enemy00
+  m_Name: Enemy01
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,14 +174,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d825dd47d678c0641b1bfac6ef68d04d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  hp: 10
+  hp: 20
   sizeX: 0
   sizeY: 0
   attackInterval: 0.5
   attackRange: 1
   attackPow: 1
-  moveSpeed: 0.5
-  dropCount: 1
+  moveSpeed: 0.4
+  dropCount: 2
   mana: {fileID: 5233477279815405418, guid: 00852561b84a8464789cdf874038a547, type: 3}
   hpGauge: {fileID: 6670462291398252703}
   upgradeUI: {fileID: 0}
