@@ -1080,7 +1080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2226943740870518656, guid: 86f41a22d1526654ab726c7569b6b430, type: 3}
       propertyPath: mana
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2226943740870518656, guid: 86f41a22d1526654ab726c7569b6b430, type: 3}
       propertyPath: spawnPoint.Array.size

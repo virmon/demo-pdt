@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     public GameObject bombUI;
     public Image bombGauge;
     public GameObject bomb;
+    public GameObject myBody;
 
     public float speed = 8f;
     public int hp = 3;
@@ -53,6 +55,8 @@ public class Player : MonoBehaviour
         move = context.ReadValue<Vector2>();
     }
 
+    private bool idle = true;
+
     private void Move()
     {
         if (gameManager.noActionFlag == true) return;
@@ -63,6 +67,23 @@ public class Player : MonoBehaviour
         currentPos.x = Math.Clamp(currentPos.x, -13f, 13f);
         currentPos.y = Math.Clamp(currentPos.y, -2.4f, 5f);
         transform.position = currentPos;
+
+        float x = move.x;
+        if (x > 0.1f && idle == true)
+        {
+            idle = false;
+            myBody.transform.DOLocalRotate(new Vector3(0, 0, -12), 0.1f).SetLink(gameObject);
+        }
+        else if (x < -0.1f && idle == true)
+        {
+            idle = false;
+            myBody.transform.DOLocalRotate(new Vector3(0, 0, 8), 0.1f).SetLink(gameObject);
+        }
+        else if (Mathf.Abs(x) < 0.1f && idle == false)
+        {
+            idle = true;
+            myBody.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f).SetLink(gameObject);
+        }
     }
 
     // Fire bullet
